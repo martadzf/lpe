@@ -80,11 +80,14 @@ df_low <- df1 %>% mutate(lowcost =! rotulo %in% c("CEPSA", "REPSOL", "BP", "SHEL
 df_low %>% select(precio_gasoleo_a, idccaa, rotulo, lowcost) %>% drop_na() %>% group_by(idccaa, lowcost) %>% summarize(mean(precio_gasoleo_a)) %>% view()
 
 ##Columna nombre ccaa
-df_low %>% mutate(ccaa = idccaa %in% c("01"=="ANDALUCIA","02"=="ARAGON", "03"=="ASTURIAS", "04"=="BALEARES", 
-                                       "05"=="CANARIAS","06"=="CANTABRIA", "07"=="CASTILLA Y LEON", 
-                                       "08"=="CASTILLA - LA MANCHA", "09"=="CATALUÑA", "10"=="COMUNIDAD VALENCIANA",
-                                       "11"=="EXTREMADURA", "12"=="GALICIA", "13"=="MADRID", "14"=="MURCIA", "15"=="NAVARRA",
-                                       "16"=="PAIS VASCO", "17"=="LA RIOJA","18"=="CEUTA","19"=="MELILLA"))
+
+df_ccaa <- df_low %>% mutate(df_low,ccaa = ifelse(idccaa == "01" , "ANDALUCIA", ifelse(idccaa == "02", "ARAGON",ifelse( idccaa == "03", "ASTURIAS",
+                                ifelse(idccaa =="04", "BALEARES", ifelse(idccaa =="05", "CANARIAS",ifelse(idccaa =="06", "CANTABRIA",
+                                ifelse(idccaa =="07", "CASTILLA Y LEON ",ifelse(idccaa =="08", "CASTILLA - LA MANCHA",ifelse(idccaa =="09", "CATALUÑA",
+                                ifelse(idccaa =="10", "COMUNIDAD VALENCIANA",ifelse(idccaa =="11", "EXTREMADURA",ifelse(idccaa =="12", "GALICIA",
+                                ifelse(idccaa =="13", "MADRID",ifelse(idccaa =="14", "MURCIA",ifelse(idccaa =="15", "NAVRRA",
+                                ifelse(idccaa =="16", "PAIS VASCO",ifelse(idccaa =="17", "LA RIOJA",ifelse(idccaa =="18", "CEUTA", 
+                                ifelse(idccaa =="19", "MELILLA", "NA")))))))))))))))))))) %>% view()
 
 ##Gasolinera más barata
   
